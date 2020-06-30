@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 29, 2020, 3:39:38 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.javaweb.model.SinhVien" table="sinhvien">
+        <id name="masinhvien" type="int">
+            <column name="masinhvien" />
+            <generator class="native" />
+        </id>
+        <property name="hoten" type="java.lang.String">
+            <column name="hoten" />
+        </property>
+        <property name="ngaysinh" type="java.sql.Date">
+            <column name="ngaysinh" />
+        </property>
+        <property name="gioitinh" type="byte">
+            <column name="gioitinh" />
+        </property>
+        <property name="diachi" type="java.lang.String">
+            <column name="diachi" />
+        </property>
+        <property name="email" type="java.lang.String">
+            <column name="email" />
+        </property>
+        <property name="sodienthoai" type="java.lang.String">
+            <column name="sodienthoai" />
+        </property>
+        <many-to-one name="lopnienche" class="com.javaweb.model.LopNienChe" fetch="join">
+            <column name="malopnienche" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

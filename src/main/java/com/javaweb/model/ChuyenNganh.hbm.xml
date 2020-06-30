@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Jun 29, 2020, 3:39:38 PM by Hibernate Tools 3.5.0.Final -->
+<hibernate-mapping>
+    <class name="com.javaweb.model.ChuyenNganh" table="chuyennganh">
+        <id name="machuyennganh" type="int">
+            <column name="machuyennganh" />
+            <generator class="native" />
+        </id>
+        <property name="tenchuyennganh" type="java.lang.String">
+            <column name="tenchuyennganh" />
+        </property>
+        <many-to-one name="khoa" class="com.javaweb.model.Khoa" fetch="join">
+            <column name="makhoa" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

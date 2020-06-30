@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<decorators defaultdir="/decorators">
+
+	<decorator name="web" page="web.jsp">
+		<pattern>/trang-chu</pattern>
+		<pattern>/quan-ly-khoa</pattern>
+		<pattern>/quan-ly-chuyen-nganh</pattern>
+		<pattern>/quan-ly-giang-vien</pattern>
+		<pattern>/quan-ly-lop-nien-che</pattern>
+		<pattern>/quan-ly-sinh-vien</pattern>
+	</decorator>
+
+</decorators>
