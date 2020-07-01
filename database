@@ -1,0 +1,84 @@
+CREATE DATABASE quanlysinhvien2;
+use quanlysinhvien2;
+
+
+
+CREATE TABLE taikhoan(
+ tendangnhap varchar(50) NOT NULL PRIMARY KEY,
+ matkhau VARCHAR(150),
+ hoten NVARCHAR(150)
+);
+
+INSERT INTO taikhoan(tendangnhap, matkhau, hoten) VALUES('Admin', '123456789', 'Hoàng Anh Nguyễn');
+
+CREATE TABLE khoa(
+ makhoa INT NOT NULL auto_increment,
+ tenkhoa NVARCHAR(150),
+ sodienthoai VARCHAR(20) ,
+ PRIMARY KEY (makhoa)
+);
+select * from khoa;
+INSERT INTO khoa ( tenkhoa, sodienthoai) VALUES ('Công nghệ thông tin', '0123456789');
+INSERT INTO khoa ( tenkhoa, sodienthoai) VALUES ('Điện tử viễn thông', '0123456789');
+
+CREATE TABLE chuyennganh(
+machuyennganh INT NOT NULL auto_increment,
+tenchuyennganh NVARCHAR(150),
+makhoa INT default NULL,
+PRIMARY KEY (machuyennganh)
+);
+
+ALTER TABLE chuyennganh ADD CONSTRAINT fk_chuyennganh_khoa FOREIGN KEY (makhoa) REFERENCES khoa(makhoa) ON DELETE SET NULL ;
+INSERT INTO chuyennganh( tenchuyennganh, makhoa) VALUES('Công nghệ phần mềm', 1);
+INSERT INTO chuyennganh( tenchuyennganh, makhoa) VALUES('Thương mại điện tử', 1);
+INSERT INTO chuyennganh( tenchuyennganh, makhoa) VALUES('Quản trị an ninh mạng', 1);
+select * from chuyennganh;
+
+CREATE TABLE giangvien(
+ magiangvien INT NOT NULL auto_increment,
+ tengiangvien NVARCHAR(100),
+ ngaysinh DATE,
+ sodienthoai VARCHAR(20),
+ gioitinh BIT,
+ diachi NVARCHAR(250),
+ email NVARCHAR(100),
+ makhoa INT default NULL,
+ PRIMARY KEY (magiangvien)
+);
+
+ALTER TABLE giangvien ADD CONSTRAINT fk_giangvien_khoa FOREIGN KEY (makhoa) REFERENCES khoa(makhoa) ON DELETE SET NULL ;
+INSERT INTO giangvien( tengiangvien, ngaysinh, sodienthoai, gioitinh, diachi, email, makhoa) VALUES('Phương Văn Cảnh', '1992-07-21', '0123456789', 1, 'Hà Nội' ,'canhpv@gmail.com', 1);
+INSERT INTO giangvien( tengiangvien, ngaysinh, sodienthoai, gioitinh, diachi, email, makhoa) VALUES('Cù Việt Dũng', '1990-05-11', '0123456789', 1, 'Hà Nội' ,'dungcv@gmail.com', 1);
+INSERT INTO giangvien( tengiangvien, ngaysinh, sodienthoai, gioitinh, diachi, email, makhoa) VALUES('Phạm Đức Hồng', '1989-10-01', '0123456789', 1, 'Hà Nội' ,'hongdp@gmail.com', 2);
+
+select * from giangvien;
+
+CREATE TABLE lopnienche(
+ malopnienche INT NOT NULL auto_increment,
+ tenlopnienche NVARCHAR(100),
+ nienkhoa VARCHAR(50),
+ siso INT,
+ machuyennganh INT default NULL,
+ magiangvien INT default NULL,
+ PRIMARY KEY (malopnienche)
+);
+
+ALTER TABLE lopnienche ADD CONSTRAINT fk_lopnienche_chuyennganh FOREIGN KEY (machuyennganh) REFERENCES chuyennganh(machuyennganh) ON DELETE SET NULL ;
+ALTER TABLE lopnienche ADD CONSTRAINT fk_lopnienche_giangvien FOREIGN KEY (magiangvien) REFERENCES giangvien(magiangvien) ON DELETE SET NULL ;
+INSERT INTO lopnienche( tenlopnienche, nienkhoa, siso, machuyennganh, magiangvien) VALUES('Công nghệ phần mềm 1', '2017-2020', 80, 1, 1);
+INSERT INTO lopnienche( tenlopnienche, nienkhoa, siso, machuyennganh, magiangvien) VALUES('Công nghệ phần mềm 2', '2017-2020', 80, 1, 2);
+INSERT INTO lopnienche( tenlopnienche, nienkhoa, siso, machuyennganh, magiangvien) VALUES('Quản trị an ninh mạng', '2017-2020', 80, 2, 3);
+
+CREATE TABLE sinhvien(
+ masinhvien INT NOT NULL auto_increment,
+ hoten NVARCHAR(250),
+ ngaysinh DATE,
+ gioitinh BIT,
+ diachi NVARCHAR(250),
+ email NVARCHAR(250),
+ sodienthoai VARCHAR(20),
+ malopnienche INT default NULL,
+ PRIMARY KEY (masinhvien)
+);
+
+ALTER TABLE sinhvien ADD CONSTRAINT fk_sinhvien_lopnienche FOREIGN KEY (malopnienche) REFERENCES lopnienche(malopnienche) ON DELETE SET NULL ;
